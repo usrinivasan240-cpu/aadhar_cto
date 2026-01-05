@@ -71,8 +71,13 @@ const Scanner = ({ onComplete }: ScannerProps) => {
   const verifyAadhaarVC = (data: string) => {
     // This is a placeholder for actual Aadhaar VC verification logic
     // Real verification would involve checking the digital signature
-    // For this demo, we check if it looks like a Verifiable Credential or signed data
-    return data.length > 50; // Simple heuristic for a signed VC
+    // For this demo, we check for specific entry code
+    if (data === "Canada") {
+      return true; // Entry allowed
+    } else if (data && data.length > 0) {
+      return false; // Entry denied for other data
+    }
+    return false; // Simple heuristic for a signed VC
   };
 
   if (scanResult) {
