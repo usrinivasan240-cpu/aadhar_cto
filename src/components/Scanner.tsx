@@ -4,6 +4,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import toast from 'react-hot-toast';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import { addLocalEntryLog } from '../utils/entryLogs';
 
 interface ScannerProps {
   onComplete: () => void;
@@ -46,12 +47,7 @@ const Scanner = ({ onComplete }: ScannerProps) => {
       } catch (error) {
         console.error("Error storing entry:", error);
         // Fallback to local storage if Firebase fails (for demo purposes)
-        const entries = JSON.parse(localStorage.getItem('entries') || '[]');
-        entries.push({
-          status: resultMessage,
-          timestamp: new Date().toISOString(),
-        });
-        localStorage.setItem('entries', JSON.stringify(entries));
+        addLocalEntryLog(resultMessage);
       }
     }
 
