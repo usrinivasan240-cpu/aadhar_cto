@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+  </style>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<table>
+  <tr>
+    <th>Time</th>
+    <th>Status</th>
+  </tr>
+  <tbody id="logs"></tbody>
+</table>
+
+<script>
+const logs = JSON.parse(localStorage.getItem("entryLogs")) || [];
+const table = document.getElementById("logs");
+
+logs.forEach(log => {
+  const row = document.createElement("tr");
+  row.innerHTML = `<td>${log.time}</td><td>${log.status}</td>`;
+  table.appendChild(row);
+});
+</script>
+
+<br>
+<a href="index.html">⬅ Back to Home</a>
+
+</body>
+</html>
